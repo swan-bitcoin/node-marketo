@@ -153,3 +153,50 @@ Implements [Get Multiple Leads by List Id](http://developers.marketo.com/documen
 // Get leads from list id 1
 marketo.list.getLeads(1);
 ```
+
+### Activity
+
+#### activities.addCustomActivities(customActivityRequests)
+
+Implements [Add Custom Activities](https://developers.marketo.com/rest-api/endpoint-reference/lead-database-endpoint-reference/#!/Activities/addCustomActivityUsingPOST)
+
+
+
+| param          | type   | description             |
+| --             | --     | --                      |
+| `activityDate` | string | ISO 8601 formatted date |
+
+Usage:
+
+Associate a lead and an activity.
+
+API: `/api/v1/activities/external.json`
+
+Example: associating with a custom activity,
+assuming `client` is a `new Marketo({...})`
+
+```js
+const customActivities = [
+  {
+    activityDate: new Date.toISOString(),
+    activityTypeId: 98291,
+    leadId: 83,
+    apiName: "usedDiscountCode_c",
+    primaryAttributeValue: "Discount: 30%"
+  }
+]
+
+client.activities.addCustomActivities(customActivities).then(function(data) {
+  console.log(data)
+})
+```
+
+`data` in the `then` function looks like this:
+
+```js
+{
+  requestId: '9999b#928ab92ab9e',
+  result: [ { id: 12, marketoGUID: '12', status: 'added' } ],
+  success: true
+}
+```
