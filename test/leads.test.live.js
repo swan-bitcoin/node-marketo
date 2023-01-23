@@ -80,7 +80,7 @@ describe('Leads', function () {
 
     it('finds a lead and retrieve a subset of fields using csv', function (done) {
       marketo.lead
-        .byId(1, { fields: 'email,lastName' })
+        .byId(1, { fields: 'email,title' })
         .then(function (resp) {
           assert.equal(resp.result.length, 1);
 
@@ -88,7 +88,7 @@ describe('Leads', function () {
           assert.equal(lead.id, 1);
           assert.equal(_.keys(lead).length, 3);
           assert(_.has(lead, 'email'));
-          assert(_.has(lead, 'lastName'));
+          assert(_.has(lead, 'title'));
           done();
         })
         .catch(done);
