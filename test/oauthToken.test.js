@@ -31,7 +31,7 @@ function stubToken(body) {
 }
 
 // Resolves with the rejection reason, and fails if the promise resolves
-function rejection(promise) {
+function expectRejection(promise) {
   return promise.then(
     function () {
       throw new Error('expected the promise to reject');
@@ -137,7 +137,7 @@ describe('OAuth token', function () {
     return connection
       .getOAuthToken()
       .then(function () {
-        return rejection(connection.getOAuthToken(true));
+        return expectRejection(connection.getOAuthToken(true));
       })
       .then(function () {
         assert.equal(connection._tokenData, null);
@@ -155,7 +155,8 @@ describe('OAuth token', function () {
       error_description: 'Bad client credentials',
     });
 
-    return rejection(getConnection().get('/some_path')).then(function (err) {
+    var connection = getConnection();
+    return expectRejection(connection.get('/some_path')).then(function (err) {
       assert.equal(
         err.message,
         'Authentication (invalid_client): Bad client credentials'
@@ -171,7 +172,8 @@ describe('OAuth token', function () {
       code: 'ETIMEDOUT',
     });
 
-    return rejection(getConnection().get('/some_path')).then(function (err) {
+    var connection = getConnection();
+    return expectRejection(connection.get('/some_path')).then(function (err) {
       assert.equal(
         err.message,
         'Authentication (ETIMEDOUT): timeout of 20000ms exceeded'
