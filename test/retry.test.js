@@ -7,7 +7,7 @@ var _ = require('lodash'),
   IDENTITY_URL = '/identity';
 
 function getUrl(server, path) {
-  return 'http://localhost:' + server.http().address().port + path;
+  return 'http://127.0.0.1:' + server.http().address().port + path;
 }
 
 function getConnection(server, retry) {

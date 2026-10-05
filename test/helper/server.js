@@ -19,7 +19,7 @@ function TestServer() {
 
 TestServer.prototype = {
   listen: function (cb) {
-    this._server.listen(0, 'localhost', cb);
+    this._server.listen(0, '127.0.0.1', cb);
   },
 
   http: function () {
